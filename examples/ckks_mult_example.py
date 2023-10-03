@@ -18,6 +18,7 @@ from ckks.ckks_parameters import CKKSParameters
 def main():
 
     message1 = [28.0, 1.0]
+    message2 = [1.0, 1.0]
 
     poly_degree = len(message1) << 1
     ciph_modulus = 1 << 600
@@ -39,11 +40,11 @@ def main():
     # message1 = [28.0]
     # message2 = [0.2, 0.11, 0.4 + 0.67j, 0.9 + 0.99j]
     plain1 = encoder.encode(message1, scaling_factor)
-    # plain2 = encoder.encode(message2, scaling_factor)
+    plain2 = encoder.encode(message2, scaling_factor)
     ciph1 = encryptor.encrypt(plain1)
     # ciph2 = encryptor.encrypt(plain2)
-    # ciph_prod = evaluator.multiply(ciph1, ciph2, relin_key)
-    decrypted_prod = decryptor.decrypt(ciph1)
+    ciph_prod = evaluator.add_plain(ciph1, plain2)
+    decrypted_prod = decryptor.decrypt(ciph_prod)
     decoded_prod = encoder.decode(decrypted_prod)
     
     print(decoded_prod)
