@@ -70,8 +70,9 @@ class CKKSEncoder:
         # Divide by scaling factor, and turn back into a complex number.
         message = [0] * num_values
         for i in range(num_values):
-            message[i] = complex(plain.poly.coeffs[i] / plain.scaling_factor,
-                                 plain.poly.coeffs[i + num_values] / plain.scaling_factor)
+            # message[i] = complex(plain.poly.coeffs[i] / plain.scaling_factor,
+            #                      plain.poly.coeffs[i + num_values] / plain.scaling_factor)
+            message[i] = plain.poly.coeffs[i] / plain.scaling_factor
 
         # Compute canonical embedding variant.
         return self.fft.embedding(message)
