@@ -5,6 +5,8 @@ and Fermat Theoretic Transform (FTT). See https://rijndael.ece.vt.edu/schaum/pdf
 from math import log, pi, cos, sin
 import util.number_theory as nbtheory
 from util.bit_operations import bit_reverse_vec, reverse_bits
+import cmath
+import numpy as np
 
 class NTTContext:
     """An instance of Number/Fermat Theoretic Transform parameters.
@@ -309,7 +311,7 @@ class FFTContext:
             coeffs (list): List of complex numbers to transform.
 
         Returns:
-            List of transformed coefficients.
+            List of transformed coefficients in real number.
         """
         self.check_embedding_input(coeffs)
         num_coeffs = len(coeffs)
@@ -329,6 +331,13 @@ class FFTContext:
 
                     butterfly_plus = result[index_even] + omega_factor
                     butterfly_minus = result[index_even] - omega_factor
+
+                    # Evaluate the complex number to real number.
+                    # result[index_even] = cmath.real(butterfly_plus)
+                    # result[index_odd] = cmath.real(butterfly_minus)
+                    print(np.imag(butterfly_plus))
+                    print(np.imag(butterfly_minus))
+                    
 
                     result[index_even] = butterfly_plus
                     result[index_odd] = butterfly_minus

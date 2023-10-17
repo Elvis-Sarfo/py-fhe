@@ -37,16 +37,18 @@ def main():
     decryptor = CKKSDecryptor(params, secret_key)
     evaluator = CKKSEvaluator(params)
 
-    # message1 = [28.0]
-    # message2 = [0.2, 0.11, 0.4 + 0.67j, 0.9 + 0.99j]
+
     plain1 = encoder.encode(message1, scaling_factor)
     plain2 = encoder.encode(message2, scaling_factor)
+
     ciph1 = encryptor.encrypt(plain1)
-    # ciph2 = encryptor.encrypt(plain2)
-    ciph_prod = evaluator.add_plain(ciph1, plain2)
+    ciph2 = encryptor.encrypt(plain2)
+
+    ciph_prod = evaluator.add(ciph1, ciph2)
+
     decrypted_prod = decryptor.decrypt(ciph_prod)
     decoded_prod = encoder.decode(decrypted_prod)
-    
+
     print(decoded_prod)
 
 if __name__ == '__main__':

@@ -1,4 +1,12 @@
 """Example of BFV multiplication."""
+# Get the parent directory
+import os
+import sys
+
+
+parent_dir = os.path.dirname(os.path.dirname(__file__))
+# Add the parent directory to sys.path
+sys.path.append(parent_dir)
 
 from bfv.batch_encoder import BatchEncoder
 from bfv.bfv_decryptor import BFVDecryptor
@@ -9,7 +17,7 @@ from bfv.bfv_parameters import BFVParameters
 
 def main():
 
-    degree = 8
+    degree = 1
     # Ciphertext modulus is a prime congruent to 1 (mod 16).
     plain_modulus = 17
     ciph_modulus = 8000000000000
@@ -25,8 +33,8 @@ def main():
     decryptor = BFVDecryptor(params, secret_key)
     evaluator = BFVEvaluator(params)
 
-    message1 = [0, 5, 8, 2, 5, 16, 4, 5]
-    message2 = [1, 2, 3, 4, 5, 6, 7, 8]
+    message1 = [8]
+    message2 = [3]
 
     plain1 = encoder.encode(message1)
     plain2 = encoder.encode(message2)
